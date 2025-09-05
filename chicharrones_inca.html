@@ -4,3 +4,348 @@
     height="600px" 
     frameborder="0">
 </iframe>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú del Restaurante | Sabores Auténticos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f6f1;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(to right, #d35400, #e67e22);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo i {
+            margin-right: 10px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding: 0 1rem;
+        }
+
+        .intro p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #555;
+        }
+
+        .pdf-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+        }
+
+        .pdf-viewer {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 80%; /* Proporción para el iframe (ajustable) */
+            overflow: hidden;
+            border-radius: 8px;
+            background: #f1f1f1;
+            border: 1px solid #ddd;
+        }
+
+        .pdf-viewer iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #777;
+        }
+
+        .loading i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #e67e22;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.9rem 1.8rem;
+            background: #e67e22;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(230, 126, 34, 0.3);
+        }
+
+        .btn:hover {
+            background: #d35400;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(230, 126, 34, 0.4);
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn.download {
+            background: #27ae60;
+            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.3);
+        }
+
+        .btn.download:hover {
+            background: #219653;
+            box-shadow: 0 6px 15px rgba(39, 174, 96, 0.4);
+        }
+
+        .info {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .info h2 {
+            color: #e67e22;
+            margin-bottom: 1.2rem;
+            text-align: center;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .info-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: #fffaf5;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-card i {
+            font-size: 2.5rem;
+            color: #e67e22;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        /* Media Queries para Responsividad */
+        @media (max-width: 768px) {
+            header {
+                padding: 1.2rem;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .pdf-container {
+                padding: 1rem;
+            }
+            
+            .pdf-viewer {
+                padding-bottom: 120%; /* Más alto en móviles para mejor visualización */
+            }
+            
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            h1 {
+                font-size: 1.4rem;
+            }
+            
+            .intro p {
+                font-size: 1rem;
+            }
+            
+            .actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-utensils"></i>Sabores Auténticos
+        </div>
+        <h1>Nuestro Menú</h1>
+        <p>Descubre nuestras deliciosas especialidades</p>
+    </header>
+
+    <div class="container">
+        <div class="intro">
+            <p>En <strong>Sabores Auténticos</strong> nos enorgullece ofrecerte platos preparados con los ingredientes más frescos y las recetas tradicionales que nos caracterizan. Explora nuestro menú a continuación.</p>
+        </div>
+
+        <div class="pdf-container">
+            <div class="pdf-viewer">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Cargando menú...</p>
+                </div>
+                <iframe 
+                    src="https://docs.google.com/gview?url=https://ir-hoy-qr.netlify.app/chicharrones_inca/carta.pdf&embedded=true" 
+                    onload="document.querySelector('.loading').style.display='none'">
+                </iframe>
+            </div>
+        </div>
+
+        <div class="actions">
+            <a href="/menu.pdf" target="_blank" class="btn">
+                <i class="fas fa-external-link-alt"></i>Abrir en nueva pestaña
+            </a>
+            <a href="/menu.pdf" download class="btn download">
+                <i class="fas fa-download"></i>Descargar menú
+            </a>
+        </div>
+
+        <div class="info">
+            <h2>¿Necesitas ayuda?</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <i class="fas fa-phone"></i>
+                    <h3>Reservaciones</h3>
+                    <p>Llámanos al (123) 456-7890</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Dirección</h3>
+                    <p>Avenida Principal #123, Ciudad</p>
+                </div>
+                <div class="info-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Horario</h3>
+                    <p>Lunes a Domingo: 11:00 AM - 10:00 PM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Sabores Auténticos - Todos los derechos reservados</p>
+        <p>Síguenos en redes sociales: 
+            <i class="fab fa-facebook"></i> 
+            <i class="fab fa-instagram"></i> 
+            <i class="fab fa-twitter"></i>
+        </p>
+    </footer>
+
+    <script>
+        // Script para mejorar la experiencia en dispositivos móviles
+        document.addEventListener('DOMContentLoaded', function() {
+            // Detectar si es un dispositivo táctil
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints;
+            
+            if (isTouchDevice) {
+                // Ajustar altura del visualizador para dispositivos táctiles
+                const pdfViewer = document.querySelector('.pdf-viewer');
+                pdfViewer.style.paddingBottom = '140%';
+            }
+            
+            // Mostrar mensaje si el PDF tarda en cargar
+            setTimeout(function() {
+                const loading = document.querySelector('.loading');
+                if (loading && loading.style.display !== 'none') {
+                    loading.innerHTML = '<i class="fas fa-info-circle"></i><p>El menú está tardando en cargar. Comprueba tu conexión.</p>';
+                }
+            }, 7000);
+        });
+    </script>
+</body>
+</html>
